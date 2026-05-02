@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Mathias Moore | CS & Management Graduate</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0f;
+      color: #ecedee;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --bg-dark: #0a0a0f;
+      --bg-card: #12121a;
+      --cyan: #00f0ff;
+      --purple: #b026ff;
+      --orange: #ff6b35;
+      --text-light: #f0f3f8;
+      --text-muted: #b0b3c0;
+    }
+
+    .container {
+      max-width: 1280px;
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--cyan);
+      padding: 0.6rem 1.2rem;
+      border-radius: 40px;
+      font-weight: 500;
+      transition: 0.2s;
+      display: inline-block;
+    }
+    .btn-outline a {
+      text-decoration: none;
+      color: var(--cyan);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-outline:hover {
+      background: var(--cyan);
+    }
+    .btn-outline:hover a {
+      color: var(--bg-dark);
+    }
+
+    .navbar {
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      padding: 1rem 0;
+      transition: 0.3s;
+    }
+    .navbar.solid {
+      background: rgba(10, 10, 15, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+    }
+    .navbar-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .menu-items {
+      display: flex;
+      gap: 0.8rem;
+      list-style: none;
+    }
+    .menu-items a {
+      text-decoration: none;
+      color: var(--text-light);
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      transition: 0.2s;
+    }
+    .menu-items a:hover {
+      color: var(--cyan);
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: radial-gradient(circle at 20% 30%, #12121a, #050508);
+      text-align: center;
+    }
+    .hero-content h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff, var(--cyan), var(--purple));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.8rem;
+    }
+    .tagline {
+      font-size: 1.3rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 1rem auto;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid var(--cyan);
+      padding: 0.4rem 1rem;
+      border-radius: 60px;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+    }
+    .angle-icon {
+      position: absolute;
+      bottom: 8%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      animation: bounce 2s infinite;
+    }
+    .angle-icon a {
+      color: var(--cyan);
+    }
+    @keyframes bounce {
+      0%,100%{ transform: translateY(0);}
+      50%{ transform: translateY(10px);}
+    }
+
+    section {
+      padding: 5rem 0;
+    }
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 2.5rem;
+      text-align: center;
+      background: linear-gradient(120deg, #fff, var(--cyan));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .about-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3rem;
+      align-items: center;
+      justify-content: center;
+    }
+    .profile-pic-area {
+      flex: 0.8;
+      text-align: center;
+    }
+    .avatar-placeholder {
+      width: 220px;
+      height: 220px;
+      background: linear-gradient(145deg, var(--purple), var(--cyan));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      box-shadow: 0 0 30px rgba(0,240,255,0.3);
+    }
+    .avatar-placeholder span {
+      font-size: 4rem;
+      font-weight: 800;
+      color: #0a0a0f;
+    }
+    .profile-pic-img {
+      display: none;
+    }
+    .about-text {
+      flex: 2;
+    }
+    .about-text p {
+      margin-bottom: 1rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+    .cert-badge {
+      display: inline-block;
+      background: rgba(255, 107, 53, 0.15);
+      border-left: 3px solid var(--orange);
+      padding: 0.5rem 1rem;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--orange);
+    }
+
+    .exp-card, .edu-card {
+      background: var(--bg-card);
+      border-radius: 24px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid var(--cyan);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    .exp-card h3, .edu-card h3 {
+      color: var(--cyan);
+      margin-bottom: 0.3rem;
+    }
+    .date {
+      color: var(--orange);
+      font-size: 0.85rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .project-card {
+      background: var(--bg-card);
+      border-radius: 28px;
+      padding: 1.5rem;
+      transition: 0.3s;
+      border: 1px solid rgba(0,240,255,0.1);
+    }
+    .project-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--cyan);
+      box-shadow: 0 20px 30px -12px rgba(0,240,255,0.15);
+    }
+    .project-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0.5rem 0;
+    }
+    .project-tech {
+      color: var(--orange);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .project-desc {
+      margin: 1rem 0;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .project-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-section {
+      background: linear-gradient(145deg, #0d0d14, #050508);
+      border-radius: 48px;
+      padding: 3rem;
+      text-align: center;
+    }
+    .contact-flex {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.8rem;
+      margin: 2rem 0;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg-card);
+      padding: 0.7rem 1.4rem;
+      border-radius: 60px;
+    }
+    .contact-item i {
+      font-size: 1.4rem;
+      color: var(--cyan);
+    }
+    .contact-item a {
+      color: var(--cyan);
+      text-decoration: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(0,240,255,0.1);
+    }
+
+    @media (max-width: 768px) {
+      .hero-content h1 { font-size: 2.5rem; }
+      .section-title { font-size: 1.8rem; }
+      .contact-flex { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="navbar-container container">
+    <div class="logo">MATHIAS MOORE</div>
+    <ul class="menu-items">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="home">
+  <div class="hero-content container">
+    <h1>Mathias Moore</h1>
+    <div class="tagline">BSc Computer Science & Management | Cryptography · Game Dev · Software Engineering</div>
+    <div class="hero-badge">🔐 Open to Software, Cybersecurity & Finance Roles</div>
+    <div class="angle-icon">
+      <a href="#about"><i class="fas fa-angle-down"></i></a>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="container">
+    <h2 class="section-title">About Me</h2>
+    <div class="about-grid">
+      <div class="profile-pic-area">
+        <div class="avatar-placeholder" id="avatarPlaceholder">
+          <span>MM</span>
+        </div>
+        <img class="profile-pic-img" id="profileImg" src="" alt="Mathias" style="width:220px; height:220px; border-radius:50%; object-fit:cover; margin:0 auto; display:none; box-shadow:0 0 20px cyan;">
+        <p style="margin-top: 12px; font-size:0.75rem;"><i class="fas fa-image"></i></p>
+      </div>
+      <div class="about-text">
+        <p>I am a BSc Computer Science and Management graduate from the University of the West Indies, St. Augustine. I have developed multiple software projects including Ole Talk, a live social media platform, Urban Runner games (2D Java racers), a secure file transmission system using Python with custom Vigenère cipher and OTP, and an Android quiz app in Android Studio.</p>
+        <p>My technical interests include cryptography, game programming, and full stack development. I am currently pursuing the CompTIA Security+ certification and plan to pursue CCNA afterward. I have demonstrated leadership experience in operations and team management and am actively seeking entry level roles in software engineering, cybersecurity, and finance.</p>
+        <div class="cert-badge">
+          <i class="fas fa-certificate"></i> CompTIA Security+ (In Progress) | CCNA (Planned)
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="container">
+    <h2 class="section-title">Work & Education</h2>
+    <div class="exp-card">
+      <h3>Assistant Manager - CINEMAONE</h3>
+      <div class="date">May – August 2024</div>
+      <p>Led a team of 5 plus staff. Oversaw daily operations including ticket sales, concessions, and customer service. Trained employees on POS systems, customer service protocols, and cinema safety procedures. Troubleshot digital cinema projectors, resolving technical issues to prevent show delays.</p>
+    </div>
+    <div class="exp-card">
+      <h3>Floor Worker - FEROZA'S FURNITURE STORE</h3>
+      <div class="date">May – August 2025</div>
+      <p>Delivered and assembled furniture, handled maintenance. Processed transactions and maintained store cleanliness.</p>
+    </div>
+    <div class="edu-card">
+      <h3>University of the West Indies, St. Augustine</h3>
+      <div class="date">2023-2026 · BSc Computer Science and Management</div>
+      <p>Key studies: Object Oriented Programming (Java), Software Engineering, Database Systems, Cloud Computing, Game Development, Mobile App Development, Cybersecurity, Management and Statistical Analysis.</p>
+    </div>
+    <div class="edu-card">
+      <h3>Presentation College, San Fernando</h3>
+      <div class="date">2017-2023 · 8 CSEC | 5 CAPE Subjects</div>
+      <p>Co curricular: UWI Debate Society, Computing Society, Economics Society.</p>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="container">
+    <h2 class="section-title">Projects</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-tech">JAVA · 2D GAME DEV</div>
+        <div class="project-title">Urban Runner / Street Racer</div>
+        <div class="project-desc">2D Java racing game featuring real time player input, collision detection, and object oriented design.</div>
+        <div class="project-links">
+          <a href="https://github.com/MathiasMoore21/MathiasMooreStreetRacerGame" target="_blank" class="btn-outline"><i class="fab fa-github"></i> Code</a>
+          <a href="https://youtube.com/shorts/trjWBrhF3oE" target="_blank" class="btn-outline"><i class="fab fa-youtube"></i> Demo</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-tech">PYTHON · CRYPTOGRAPHY</div>
+        <div class="project-title">Secure File Transmission System</div>
+        <div class="project-desc">Built a secure file encryption and decryption system applying cryptographic principles for protected data transmission using sockets, custom Vigenère cipher and OTP.</div>
+        <div class="project-links">
+          <a href="https://github.com/MathiasMoore21/Mathias-Moore-CyberSecurity-Project" target="_blank" class="btn-outline"><i class="fab fa-github"></i> Code</a>
+          <a href="https://drive.google.com/file/d/1RvW8q8SGhsBheoYQ_XACGgr1ezalRGKn/view?usp=sharing" target="_blank" class="btn-outline"><i class="fab fa-google-drive"></i> Demo</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-tech">JAVA · ANDROID</div>
+        <div class="project-title">QuizApp</div>
+        <div class="project-desc">Android quiz app with AI generated questions, timed rounds, live scoring, and sound effects.</div>
+        <div class="project-links">
+          <a href="https://github.com/MathiasMoore21/QuizApp" target="_blank" class="btn-outline"><i class="fab fa-github"></i> Code</a>
+          <a href="https://youtube.com/shorts/c9v5oE6Xz5c" target="_blank" class="btn-outline"><i class="fab fa-youtube"></i> Demo</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-tech">JAVA · 2D GAME</div>
+        <div class="project-title">Digital Pest Control</div>
+        <div class="project-desc">2D Java game featuring pest elimination mechanics, responsive controls, and engaging level design.</div>
+        <div class="project-links">
+          <a href="https://github.com/MathiasMoore21/DigitalPestControl" target="_blank" class="btn-outline"><i class="fab fa-github"></i> Code</a>
+          <a href="https://youtu.be/ePd7GliUTCY" target="_blank" class="btn-outline"><i class="fab fa-youtube"></i> Demo</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-tech">FULL STACK · SOCIAL MEDIA</div>
+        <div class="project-title">Ole Talk</div>
+        <div class="project-desc">Live social media platform. Built and deployed.</div>
+        <div class="project-links">
+          <a href="https://github.com/MathiasMoore21/Ole-Talk" target="_blank" class="btn-outline"><i class="fab fa-github"></i> Code</a>
+          <a href="https://mathiasmoore21.github.io/Ole-Talk" target="_blank" class="btn-outline"><i class="fas fa-external-link-alt"></i> Live Site</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="contact-section">
+      <h2 class="section-title" style="margin-bottom:0.5rem;">Contact</h2>
+      <div class="contact-flex">
+        <div class="contact-item"><i class="fas fa-envelope"></i> mathiasmoore21@gmail.com</div>
+        <div class="contact-item"><i class="fas fa-phone-alt"></i> +1 (868) 295-5032</div>
+        <div class="contact-item"><i class="fab fa-linkedin"></i> <a href="https://linkedin.com/in/mathias-moore" target="_blank">linkedin.com/in/mathias-moore</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Mathias Moore · BSc Computer Science & Management · UWI Graduate</p>
+</footer>
+
+<script>
+  $(document).ready(function(){
+    $(window).scroll(function(){
+      if($(this).scrollTop() > 50){
+        $('.navbar').addClass('solid');
+      } else {
+        $('.navbar').removeClass('solid');
+      }
+    });
+    
+    $('a[href*="#"]').on('click', function(e){
+      if(this.hash !== "" && $(this.hash).length){
+        e.preventDefault();
+        $('html, body').animate({ scrollTop: $(this.hash).offset().top - 70 }, 600);
+      }
+    });
+  });
+  
+  /* Add your photo later: 
+     document.getElementById('profileImg').src = "YOUR-IMAGE-URL";
+     document.getElementById('profileImg').style.display = "block";
+     document.getElementById('avatarPlaceholder').style.display = "none";
+  */
+</script>
+</body>
+</html>
