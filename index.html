@@ -318,7 +318,7 @@
         <div class="proj-desc">Designed and implemented a multi-floor enterprise casino network in Cisco Packet Tracer featuring VLAN segmentation, OSPF routing, DHCP, SSH remote management, wireless connectivity, and port security. The project simulates a real-world business environment with multiple departments, secure network access, and full inter-department communication.</div>
         <div class="proj-links">
           <a href="https://github.com/MathiasMoore21/Casino-Network-Infrastructure-Lab" target="_blank" class="proj-link primary"><i class="fab fa-github"></i> Code</a>
-          <a href="#" class="proj-link secondary"><i class="fab fa-youtube"></i> Demo (soon)</a>
+          <span class="proj-link secondary" style="opacity:.5; cursor:default;"><i class="fab fa-youtube"></i> Demo (soon)</span>
         </div>
       </div>
 
@@ -411,7 +411,7 @@
 $(window).scroll(function(){
   $('.navbar').toggleClass('solid', $(this).scrollTop() > 50);
 });
-$('a[href^="#"]').on('click', function(e){
+$('.nav-links a[href^="#"], .scroll-indicator, .btn-primary[href^="#"], .btn-outline[href^="#"]').on('click', function(e){
   const target = $(this.hash);
   if(target.length){ e.preventDefault(); $('html,body').animate({scrollTop: target.offset().top - 72}, 600); }
 });
